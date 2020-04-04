@@ -1,0 +1,75 @@
+    #include <bits/stdc++.h>
+    #define pb          push_back
+    #define pf          push_front
+    #define pii         pair<int,int>
+    #define vi          vector<int>
+    #define vp          vector<pair<int,int>,int>
+    #define pb          push_back
+    #define mii         map<int,int>
+    #define pii         pair<int,int>
+    #define msi         map<string,int>
+    #define psi         pair<string,int>
+    #define mpi         map<pair<int,int>,int>
+    #define fo(i,l,u)   for(i=l;i<u;i++)
+    #define rfo(i,l,u)  for(i=l;i>=u;i--)
+    #define ef          else if
+    # define MOD        10^9+7
+
+    using namespace std;
+    
+    signed main()
+    {
+        int t;
+        cin>>t;
+        for(int i=1;i<=t;i++){
+            int p;
+            cin>>p;
+            vector<pair<int,int> > a(p);
+            map<pair<int,int>,set<int>>hrujul;
+            for(int j=0;j<p;j++)
+            {
+                int x,y;
+                cin>>x>>y;
+                a[j].first=x;
+                a[j].second=y;
+                hrujul[{x,y}].insert(j);
+            }
+            sort(a.begin(),a.end());
+            map<int,char> m;
+            int cl=0,jl=0;
+            bool f=false;
+            for(int k=0;k<p;k++)
+            {
+                int x=a[k].first;
+                int y=a[k].second;
+                int geti=*hrujul[{x,y}].begin();
+                hrujul[{x,y}].erase(geti);
+                if(cl<=a[k].first)
+                {
+                    m[geti]='C';
+                    cl=a[k].second;
+                }
+                else if(jl<=a[k].first)
+                {
+                    m[geti]='J';
+                    jl=a[k].second;
+                }
+                else
+                {
+                    f=true;
+                    break;
+                }
+            }
+            if(f)
+            {
+                cout<<"Case #"<<i<<": "<<"IMPOSSIBLE"<<endl;
+                continue;
+            } 
+            string s;
+            for(int j=0;j<p;j++)
+            {
+                s+=m[j];
+            }
+            cout<<"Case #"<<i<<": "<<s<<endl;
+        }
+    }
